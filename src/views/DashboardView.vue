@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RouterLink, useRouter } from 'vue-router'
 import {
   ArrowUpRight,
   Bell,
@@ -18,12 +19,14 @@ import {
   Video,
 } from 'lucide-vue-next'
 
+const router = useRouter()
+
 const menuItems = [
-  { label: '工作台', icon: Home, active: true },
-  { label: '模拟面试', icon: Video, active: false },
-  { label: '面试记录', icon: ListChecks, active: false },
-  { label: '题库练习', icon: BookOpenCheck, active: false },
-  { label: '我的收藏', icon: Heart, active: false },
+  { label: '工作台', icon: Home, to: '/dashboard', active: true },
+  { label: '模拟面试', icon: Video, to: '/interview-config', active: false },
+  { label: '面试记录', icon: ListChecks, to: '#', active: false },
+  { label: '题库练习', icon: BookOpenCheck, to: '#', active: false },
+  { label: '我的收藏', icon: Heart, to: '#', active: false },
 ]
 
 const stats = [
@@ -56,6 +59,10 @@ const histories = [
   { date: '2026-05-22 21:40', role: '全栈工程师', score: 81, duration: '50 分钟', type: '技术面试' },
   { date: '2026-05-20 09:15', role: '后端开发工程师', score: 74, duration: '40 分钟', type: '技术面试' },
 ]
+
+const openInterviewConfig = () => {
+  router.push('/interview-config')
+}
 </script>
 
 <template>
@@ -88,24 +95,33 @@ const histories = [
       </a>
 
       <nav class="mt-8 space-y-2">
-        <a
-          v-for="item in menuItems"
-          :key="item.label"
-          href="#"
-          class="group relative flex h-[50px] items-center gap-4 rounded-xl px-5 text-base font-bold transition"
-          :class="
-            item.active
-              ? 'border border-blue-500/25 bg-blue-600/20 text-blue-300 shadow-[0_14px_40px_rgba(37,99,235,0.22)]'
-              : 'text-slate-400 hover:bg-slate-900/70 hover:text-slate-100'
-          "
-        >
-          <span
-            v-if="item.active"
-            class="absolute left-0 top-1/2 h-8 w-1 -translate-y-1/2 rounded-r-full bg-blue-400 shadow-[0_0_18px_rgba(59,130,246,0.85)]"
-          ></span>
-          <component :is="item.icon" class="size-6" stroke-width="2.2" />
-          {{ item.label }}
-        </a>
+        <template v-for="item in menuItems" :key="item.label">
+          <RouterLink
+            v-if="item.to !== '#'"
+            :to="item.to"
+            class="group relative flex h-[50px] items-center gap-4 rounded-xl px-5 text-base font-bold transition"
+            :class="
+              item.active
+                ? 'border border-blue-500/25 bg-blue-600/20 text-blue-300 shadow-[0_14px_40px_rgba(37,99,235,0.22)]'
+                : 'text-slate-400 hover:bg-slate-900/70 hover:text-slate-100'
+            "
+          >
+            <span
+              v-if="item.active"
+              class="absolute left-0 top-1/2 h-8 w-1 -translate-y-1/2 rounded-r-full bg-blue-400 shadow-[0_0_18px_rgba(59,130,246,0.85)]"
+            ></span>
+            <component :is="item.icon" class="size-6" stroke-width="2.2" />
+            {{ item.label }}
+          </RouterLink>
+          <a
+            v-else
+            href="#"
+            class="group relative flex h-[50px] items-center gap-4 rounded-xl px-5 text-base font-bold text-slate-400 transition hover:bg-slate-900/70 hover:text-slate-100"
+          >
+            <component :is="item.icon" class="size-6" stroke-width="2.2" />
+            {{ item.label }}
+          </a>
+        </template>
       </nav>
 
       <div class="absolute inset-x-4 bottom-5 space-y-3">
@@ -221,6 +237,7 @@ const histories = [
             <button
               type="button"
               class="flex h-14 items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 text-base font-black text-white shadow-[0_20px_55px_rgba(37,99,235,0.34)] transition hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
+              @click="openInterviewConfig"
             >
               <PlusCircle class="size-5" />
               新建模拟面试
