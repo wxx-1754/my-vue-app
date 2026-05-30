@@ -1,0 +1,16 @@
+@import 'tailwindcss';
+@import './base.css';
+
+@theme {
+  --font-sans: 'Avenir Next', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+a,
+button,
+input {
+  -webkit-tap-highlight-color: transparent;
+}

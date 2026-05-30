@@ -1,0 +1,26 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  color: #f8fafc;
+  background: #020617;
+  font-family:
+    'Avenir Next',
+    'PingFang SC',
+    'Microsoft YaHei',
+    'Hiragino Sans GB',
+    sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input {
+  font: inherit;
+}
