@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import {
   AudioLines,
   BarChart3,
@@ -14,12 +15,17 @@ import {
   Sparkles,
 } from 'lucide-vue-next'
 
+const router = useRouter()
 const email = ref('')
 const password = ref('')
 const showPassword = ref(false)
 
 const checklist = ['算法思路清晰', '表达结构完整', '追问应答稳定']
 const waveBars = [28, 44, 32, 62, 72, 40, 52, 86, 56, 70, 38, 64]
+
+const handleLogin = () => {
+  router.push('/dashboard')
+}
 </script>
 
 <template>
@@ -192,7 +198,7 @@ const waveBars = [28, 44, 32, 62, 72, 40, 52, 86, 56, 70, 38, 64]
         <div class="w-full max-w-[540px]">
           <form
             class="rounded-2xl border border-slate-700/90 bg-slate-800/50 px-6 py-8 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:px-10 sm:py-10"
-            @submit.prevent
+            @submit.prevent="handleLogin"
           >
             <div class="text-center">
               <div class="mx-auto mb-4 grid size-11 place-items-center rounded-2xl border border-blue-400/25 bg-blue-500/10 text-blue-300">
